@@ -6,23 +6,24 @@ import { Metadata } from "next";
 import { getLatestProductBySlug } from "@/lib/actions/product.actions";
 import { notFound } from "next/navigation";
 import ProductPrice from "@/components/shared/product/product-price";
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
-  const product = await getLatestProductBySlug(params.slug);
+import ProductImages from "@/components/shared/product/product-images";
+// export async function generateMetadata({
+//   params,
+// }: {
+//   params: { slug: string };
+// }): Promise<Metadata> {
+//   const product = await getLatestProductBySlug(params.slug);
 
-  if (!product) {
-    return {
-      title: "Product Not Found",
-    };
-  }
+//   if (!product) {
+//     return {
+//       title: "Product Not Found",
+//     };
+//   }
 
-  return {
-    title: product.name,
-  };
-}
+//   return {
+//     title: product.name,
+//   };
+// }
 
 const ProductDetailsPage = async (props: {
   params: Promise<{ slug: string }>;
@@ -35,7 +36,9 @@ const ProductDetailsPage = async (props: {
       <section>
         <div className="grid grid-cols-1 md:grid-cols-5">
           {/* IMAGES COLUMN */}
-          <div className="col-span-2">{/* IMAGE COMPONENT */}</div>
+          <div className="col-span-2">
+            <ProductImages images={product.images} />
+          </div>
           {/* DETAILS COLUMN */}
           <div className="col-span-2 p-5">
             <div className="flex flex-col gap-6">
