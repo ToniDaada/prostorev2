@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { auth } from "@/auth";
-import { signOutUser } from "@/lib/actions/user.actions";
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -10,6 +10,7 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { User2Icon } from "lucide-react";
+import { signOutUser } from "@/lib/actions/user.actions";
 const UserButton = async () => {
   const session = await auth();
   if (!session) {
@@ -21,7 +22,7 @@ const UserButton = async () => {
       </Button>
     );
   }
-  const firstInitial = session.user?.name?.charAt(0).toUpperCase();
+  const firstInitial = session.user?.name?.charAt(0).toUpperCase() ?? "U";
   return (
     <div className="flex gap-2 items-center">
       <DropdownMenu>
@@ -56,14 +57,14 @@ const UserButton = async () => {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuItem className="p-0 mb-1">
-            <form action={signOutUser} className="w-full">
-              <Button
-                className="w-full py-4 h-4 justify-start "
-                variant="ghost"
-              >
-                Sign Out
-              </Button>
-            </form>
+            <Button
+              type="submit"
+              className="w-full py-4 h-4 justify-start "
+              variant="ghost"
+              onClick={signOutUser}
+            >
+              Sign Out
+            </Button>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
