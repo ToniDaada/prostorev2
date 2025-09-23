@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any*/
+
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -14,4 +16,28 @@ export function convertToPlainObject<T>(value: T): T {
 export function formatNumberwithDecimal(num: number): string {
   const [int, decimal] = num.toString().split(".");
   return decimal ? `${int}.${decimal.padEnd(2, "0")}` : `${int}.00`;
+}
+
+//Format erros
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function formatError(error: any) {
+  if (error.name === "ZodError") {
+    // Handle zod error
+
+    const fieldErrors = error.issues.map(
+      (issue: { message: any }) => issue.message
+    );
+    return fieldErrors.join("\n");
+  } else if (
+    error.name === "PrismaClientKnownRequestError" &&
+    error.code === "P2002"
+  ) {
+    //Handle Prisma Error
+    const field = error.meta?.target ? error.meta.target[0] : "Field";
+    return `${field.charAt().toUpperCase()}${field.slice(1)} already exists`;
+  } else
+    return typeof error.message === "string"
+      ? error.message
+      : JSON.stringify(error.message);
 }
