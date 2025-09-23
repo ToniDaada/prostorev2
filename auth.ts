@@ -59,6 +59,9 @@ export const config = {
       //set the uer ID from the token
 
       session.user.id = token.sub;
+      // step 4
+      session.user.role = token.role;
+      session.user.name = token.name;
 
       // if there is an update, st the user name
       if (trigger === "update") {
@@ -66,6 +69,25 @@ export const config = {
       }
 
       return session;
+    },
+    // i want to customixe toek with jwt callback, step 1
+    async jwt({ token, user, trigger, session }: any) {
+      // Assign user fields to token
+      if (user) {
+        token.role = user.role;
+
+        //If user has no name , use forst part of email step2
+        if (user.name === "NO_NAME") {
+          token.name = user.email!.split("@")[0];
+
+          //Update database to reflect token name step 3
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { name: token.name },
+          });
+        }
+      }
+      return token;
     },
   },
 } satisfies NextAuthConfig;
