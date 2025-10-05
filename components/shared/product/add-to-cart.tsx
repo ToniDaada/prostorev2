@@ -21,9 +21,7 @@ const AddToCart = ({ item }: { item: CartItem }) => {
             t.visible ? "animate-enter" : "animate-leave"
           } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex items-center justify-between p-4`}
         >
-          <span className="text-gray-800 text-sm">
-            {item.name} added to cart
-          </span>
+          <span className="text-gray-800 text-sm">{response.message}</span>
           <button
             onClick={() => {
               router.push("/cart");
