@@ -20,7 +20,7 @@ export function formatNumberwithDecimal(num: number): string {
 
 //Format erros
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 export async function formatError(error: any) {
   if (error.name === "ZodError") {
     // Handle zod error

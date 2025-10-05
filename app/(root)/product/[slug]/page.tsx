@@ -8,6 +8,7 @@ import { notFound } from "next/navigation";
 import ProductPrice from "@/components/shared/product/product-price";
 import ProductImages from "@/components/shared/product/product-images";
 import AddToCart from "@/components/shared/product/add-to-cart";
+import { getMyCart } from "@/lib/actions/cart.actions";
 // export async function generateMetadata({
 //   params,
 // }: {
@@ -32,6 +33,8 @@ const ProductDetailsPage = async (props: {
   const { slug } = await props.params;
   const product = await getLatestProductBySlug(slug);
   if (!product) return notFound();
+
+  const cart = await getMyCart();
   return (
     <>
       <section>
@@ -89,6 +92,7 @@ const ProductDetailsPage = async (props: {
                 {product.stock > 0 && (
                   <div className="flex-center">
                     <AddToCart
+                      cart={cart}
                       item={{
                         productId: product.id,
                         name: product.name,
