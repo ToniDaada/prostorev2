@@ -1,6 +1,3 @@
-import { Button } from "@/components/ui/button";
-import LoadingPage from "../loading";
-
 import ProductList from "@/components/shared/product/product-list";
 import { getLatestProducts } from "@/lib/actions/product.actions";
 

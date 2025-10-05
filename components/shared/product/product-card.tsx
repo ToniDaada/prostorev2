@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import ProductPrice from "./product-price";
 import { Product } from "@/types";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ProductCard = ({ product }: { product: Product }) => {
   return (
     <Card className="w-full max-w-sm border-gray-200">

@@ -20,7 +20,7 @@ export function formatNumberwithDecimal(num: number): string {
 
 //Format erros
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 export async function formatError(error: any) {
   if (error.name === "ZodError") {
     // Handle zod error
@@ -40,4 +40,15 @@ export async function formatError(error: any) {
     return typeof error.message === "string"
       ? error.message
       : JSON.stringify(error.message);
+}
+
+//Round number to two decimal places
+export function round2(value: number | string) {
+  if (typeof value === "number") {
+    return Math.round((value + Number.EPSILON) * 100) / 100;
+  } else if (typeof value === "string") {
+    return Math.round((Number(value) + Number.EPSILON) * 100) / 100;
+  } else {
+    throw new Error("Value is not a number or string");
+  }
 }
