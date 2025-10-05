@@ -123,7 +123,7 @@ export async function addItemToCart(data: CartItem) {
 export async function getMyCart() {
   const sessionCartId = (await cookies()).get("sessionCartId")?.value;
 
-  // if (!sessionCartId) throw new Error("Cart Session not found");
+  if (!sessionCartId) throw new Error("Cart Session not found");
 
   //Get session and user ID
   const session = await auth();
