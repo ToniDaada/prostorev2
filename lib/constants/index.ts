@@ -1,3 +1,5 @@
+import { ShippingAddress } from "@/types";
+
 export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "Prostore";
 export const APP_DESCRIPTION =
   process.env.NEXT_PUBLIC_DESCRIPTION ||
@@ -15,5 +17,13 @@ export const signUpDefaultValues = {
   name: "",
   password: "",
   email: "",
-  confirmPassword:""
+  confirmPassword: "",
+};
+
+export const shippingAddressDefaultValues: ShippingAddress = {
+  fullName: "Daada Toni",
+  streetAddress: "3 Niyi Adedeji Street, Ogudu GRA",
+  city: "Lagos",
+  postalCode: "100001",
+  country: "Nigeria",
 };
