@@ -1,5 +1,6 @@
 import Image from "next/image";
 import loader from "@/assets/loader.gif";
+import { Loader } from "lucide-react";
 
 const LoadingPage = () => {
   return (
@@ -12,7 +13,8 @@ const LoadingPage = () => {
         width: "100vw",
       }}
     >
-      <Image width={150} height={150} src={loader} alt="Loading..." />
+      {/* <Image width={150} height={150} src={loader} alt="Loading..." /> */}
+      <Loader className="animate-spin w-[150px] h-[150px]" />
     </div>
   );
 };
