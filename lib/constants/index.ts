@@ -21,9 +21,9 @@ export const signUpDefaultValues = {
 };
 
 export const shippingAddressDefaultValues: ShippingAddress = {
-  fullName: "Daada Toni",
-  streetAddress: "3 Niyi Adedeji Street, Ogudu GRA",
-  city: "Lagos",
-  postalCode: "100001",
-  country: "Nigeria",
+  fullName: "",
+  streetAddress: "",
+  city: "",
+  postalCode: "",
+  country: "",
 };
