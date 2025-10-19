@@ -89,3 +89,25 @@ export const paymentMethodSchema = z
     message: "Payment method is not supported",
     path: ["type"],
   });
+
+// Schema for inserting oreder
+export const insertOrderSchema = z.object({
+  userId: z.string().min(1, "User is required"),
+  itemsPrice: currency,
+  taxPrice: currency,
+  shippingPrice: currency,
+  totalPrice: currency,
+  paymentMethod: z.string().refine((data) => PAYMENT_METHODS.includes(data), {
+    message: "Invalid payment method",
+  }),
+  shippingAddress: shippingAddressSchema,
+});
+
+export const insertOrderItemSchema = z.object({
+  prodcutId: z.string(),
+  slug: z.string(),
+  image: z.string(),
+  name: z.string(),
+  qty: z.number(),
+  price: currency,
+});
