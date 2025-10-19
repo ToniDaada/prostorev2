@@ -16,7 +16,7 @@ export async function createOrder() {
     if (!session) throw new Error("User is not authenticated");
 
     const cart = await getMyCart();
-    const userId = await session.user?.id;
+    const userId = session?.user?.id;
     if (!userId) throw new Error("User not found");
 
     const user = await getUserById(userId);
@@ -50,7 +50,7 @@ export async function createOrder() {
       paymentMethod: user.paymentMethod,
       itemsPrice: cart.itemsPrice,
       taxPrice: cart.taxPrice,
-      shippingProce: cart.shippingPrice,
+      shippingPrice: cart.shippingPrice,
       totalPrice: cart.totalPrice,
     });
 
@@ -58,23 +58,20 @@ export async function createOrder() {
     // http://prisma.io/docs/orm/prisma-client/queries/transactions this explains it better
     const insertedOrderId = await prisma.$transaction(async (tx) => {
       //Create order
-      const insertedOrder = await tx.order.create({
-        data: order,
-      });
+      const insertedOrder = await tx.order.create({ data: order });
 
       //Create order items from  the cart items
-      for (const items of cart.items as CartItem[]) {
+      for (const item of cart.items as CartItem[]) {
         await tx.orderItem.create({
           data: {
-            ...items,
-            price: items.price,
+            ...item,
+            price: item.price,
             orderId: insertedOrder.id,
           },
         });
       }
 
       //Clear the cart
-
       await tx.cart.update({
         where: { id: cart.id },
         data: {
