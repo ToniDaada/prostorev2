@@ -67,3 +67,61 @@ export function formatCurrency(amount: number | string | null) {
     return NaN;
   }
 }
+
+//Shorten UUID
+export function formatId(id: string) {
+  return `..${id.substring(id.length - 6)}`;
+}
+
+// Format date and times
+export const formatDateTime = (dateString: Date) => {
+  const dateTimeOptions: Intl.DateTimeFormatOptions = {
+    month: "short", // abbreviated month name(e.g Oct)
+    year: "numeric", // number year name (e.g 2025)
+    day: "numeric", // numberic day of the month (e.g 25)
+    hour: "numeric", //numeric hour (e.g '8)
+    minute: "numeric", //numeric minute (e.g '30)
+    hour12: true, //user 12-hour clock(true) or 24-horu clock(fasle)
+  };
+
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    weekday: "short", // abbrevaited weekday name (e.g., 'Mon')
+    month: "short", // abbrevaited month name (e.g., 'Oct')
+    year: "numeric", // numeric year (e.g., '2023')
+    day: "numeric", // numeric dAT OF THE MINTH (e.g., '2025')
+  };
+
+  const timeOptions: Intl.DateTimeFormatOptions = {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+
+  const formattedDateTime: string = new Date(dateString).toLocaleString(
+    "en-US",
+    dateTimeOptions
+  );
+
+  const formattedDate: string = new Date(dateString).toLocaleString(
+    "en-US",
+    dateOptions
+  );
+
+  const formattedTime: string = new Date(dateString).toLocaleString(
+    "en-US",
+    timeOptions
+  );
+  return {
+    dateTime: formattedDateTime,
+    dateOnly: formattedDate,
+    timeOnly: formattedTime,
+  };
+};
+
+// const testDate = new Date("2025-10-19T08:30:00Z");
+
+// const formatted = formatDateTime(testDate);
+
+// console.log(`FULL DATE TIME : ${formatted.dateTime}`);
+// console.log(`FULL DATE ONLY : ${formatted.dateOnly}`);
+// console.log(`FULL  TIME ONLY : ${formatted.timeOnly}`);
