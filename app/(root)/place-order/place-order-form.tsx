@@ -12,10 +12,7 @@ const PlaceOrderForm = () => {
     event.preventDefault();
     const res = await createOrder();
 
-    console.log(res.redirectTo);
-
     if (res.redirectTo) {
-      alert(res.redirectTo);
       router.push(res.redirectTo);
     }
   };
